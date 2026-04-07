@@ -1,0 +1,1758 @@
+(async function () {
+  document.title = 'public-pool-btc.ru';
+
+  const I18N = {
+    en: {
+      miningDashboard: 'mining dashboard',
+      home: 'Home',
+      blocks: 'Blocks',
+      miners: 'Miners',
+      help: 'Help',
+      pools: 'Pools',
+      theme: 'Theme',
+      soloPools: 'SOLO Mining Pools',
+      pool: 'Pool',
+      algorithm: 'Algorithm',
+      hashrate: 'Hashrate',
+      networkHashrate: 'Network Hashrate',
+      networkDifficulty: 'Network Difficulty',
+      currentPrice: 'Current Price',
+      reward: 'Reward',
+      poolStatistics: 'Pool Statistics',
+      blockStatistics: 'Block Statistics',
+      minersCount: 'Miners',
+      currentEffort: 'Current Effort',
+      lastBlock: 'Last Block',
+      blocksFound: 'Blocks found',
+      currentHeight: 'Current Height',
+      priceUsd: 'Price USD',
+      priceBtc: 'Price BTC',
+      searchWallet: 'Search wallet',
+      poolHashrate: 'Pool Hashrate',
+      howToConnect: 'HOW TO CONNECT',
+      rewardScheme: 'Reward Scheme',
+      poolFee: 'Pool Fee',
+      blockReward: 'Block Reward',
+      connectionTcp: 'Connection TCP',
+      difficulty: 'Difficulty',
+      server: 'Server',
+      description: 'Description',
+      configuration: 'Configuration',
+      useOwnWallet: 'Use your own BTC payout address and optional worker name.',
+      poolWallet: 'Pool Wallet',
+      copy: 'Copy',
+      workers: 'Workers',
+      online: 'Online',
+      offline: 'Offline',
+      currentHashrate30m: 'Current Hashrate (30m)',
+      averageHashrate3h: 'Average Hashrate (3h)',
+      work: 'Work',
+      shareSum: 'Share Sum',
+      personalEffort: 'Personal Effort',
+      unconfirmed: 'Unconfirmed',
+      balance: 'Balance',
+      pending: 'Pending',
+      hashrateChart: 'Hashrate Chart',
+      lastBestShare: 'Last Best Share',
+      bestShare: 'Best Share',
+      portDifficulty: 'Port Difficulty',
+      worker: 'Worker',
+      valids: 'Valids',
+      invalid: 'Invalid',
+      stale: 'Stale',
+      port: 'Port',
+      lastShare: 'Last Share',
+      dashboard: 'DASHBOARD',
+      rewards: 'REWARDS',
+      payouts: 'PAYOUTS',
+      interval: 'Interval',
+      amount: 'Amount',
+      time: 'Time',
+      type: 'Type',
+      effort: 'Effort',
+      solution: 'Solution',
+      status: 'Status',
+      hour: 'Hour',
+      hours12: '12 Hours',
+      hours24: '24 Hours',
+      week: 'Week',
+      month: 'Month',
+      noData: 'No Data',
+      minutesAgo: 'minutes ago',
+      minuteAgo: 'minute ago',
+      secondsAgo: 'seconds ago',
+      secondAgo: 'second ago',
+      hoursAgo: 'hours ago',
+      hourAgo: 'hour ago',
+      daysAgo: 'days ago',
+      dayAgo: 'day ago',
+      blockMaturity: 'Block maturation requires 101 new blocks in the network.',
+      information: 'Information',
+      services: 'Services',
+      agreements: 'Agreements',
+      feedback: 'Feedback',
+      compatible: 'Compatible',
+      blockExplorer: 'Block Explorer',
+      networkStats: 'Network Stats',
+      miningCalculator: 'Mining Calculator',
+      nicehashRentals: 'NiceHash Rentals',
+      miningRigRentals: 'Mining Rig Rentals',
+      privacyStatement: 'Privacy Statement',
+      termsConditions: 'Terms and Conditions',
+      telegram: 'Telegram',
+      telegramNews: 'Telegram News',
+      email: 'Email',
+      light: 'Light',
+      dark: 'Dark'
+    },
+    ru: {
+      miningDashboard: 'панель майнинга',
+      home: 'Главная',
+      blocks: 'Блоки',
+      miners: 'Майнеры',
+      help: 'Подключение',
+      pools: 'Пулы',
+      theme: 'Тема',
+      soloPools: 'SOLO Mining Pools',
+      pool: 'Пул',
+      algorithm: 'Алгоритм',
+      hashrate: 'Хешрейт',
+      networkHashrate: 'Сетевой хешрейт',
+      networkDifficulty: 'Сложность сети',
+      currentPrice: 'Текущая цена',
+      reward: 'Награда',
+      poolStatistics: 'Статистика пула',
+      blockStatistics: 'Статистика блоков',
+      minersCount: 'Майнеры',
+      currentEffort: 'Текущая эффективность',
+      lastBlock: 'Последний блок',
+      blocksFound: 'Найдено блоков',
+      currentHeight: 'Текущая высота',
+      priceUsd: 'Цена USD',
+      priceBtc: 'Цена BTC',
+      searchWallet: 'Поиск кошелька',
+      poolHashrate: 'Хешрейт пула',
+      howToConnect: 'КАК ПОДКЛЮЧИТЬСЯ',
+      rewardScheme: 'Схема выплат',
+      poolFee: 'Комиссия пула',
+      blockReward: 'Награда за блок',
+      connectionTcp: 'Connection TCP',
+      difficulty: 'Сложность',
+      server: 'Сервер',
+      description: 'Описание',
+      configuration: 'Конфигурация',
+      useOwnWallet: 'Используй свой BTC-кошелёк для выплат и необязательное имя воркера.',
+      poolWallet: 'Кошелёк пула',
+      copy: 'Копировать',
+      workers: 'Воркеры',
+      online: 'Онлайн',
+      offline: 'Оффлайн',
+      currentHashrate30m: 'Текущий хешрейт (30м)',
+      averageHashrate3h: 'Средний хешрейт (3ч)',
+      work: 'Работа',
+      shareSum: 'Сумма шар',
+      personalEffort: 'Личное усилие',
+      unconfirmed: 'Неподтверждено',
+      balance: 'Баланс',
+      pending: 'В ожидании',
+      hashrateChart: 'Hashrate Chart',
+      lastBestShare: 'Последний лучший шар',
+      bestShare: 'Лучший шар',
+      portDifficulty: 'Сложность порта',
+      worker: 'Воркер',
+      valids: 'Валидные',
+      invalid: 'Неверные',
+      stale: 'Устаревшие',
+      port: 'Порт',
+      lastShare: 'Последний шар',
+      dashboard: 'ДЕШБОРД',
+      rewards: 'НАГРАДЫ',
+      payouts: 'ВЫПЛАТЫ',
+      interval: 'Интервал',
+      amount: 'Сумма',
+      time: 'Время',
+      type: 'Тип',
+      effort: 'Усилие',
+      solution: 'Решение',
+      status: 'Статус',
+      hour: 'Час',
+      hours12: '12 часов',
+      hours24: '24 часа',
+      week: 'Неделя',
+      month: 'Месяц',
+      noData: 'Нет данных',
+      minutesAgo: 'минут назад',
+      minuteAgo: 'минуту назад',
+      secondsAgo: 'секунд назад',
+      secondAgo: 'секунду назад',
+      hoursAgo: 'часов назад',
+      hourAgo: 'час назад',
+      daysAgo: 'дней назад',
+      dayAgo: 'день назад',
+      blockMaturity: 'Созревание блока требует 101 нового блока в сети.',
+      information: 'Информация',
+      services: 'Сервисы',
+      agreements: 'Соглашения',
+      feedback: 'Обратная связь',
+      compatible: 'Совместимо',
+      blockExplorer: 'Обозреватель блоков',
+      networkStats: 'Статистика сети',
+      miningCalculator: 'Калькулятор майнинга',
+      nicehashRentals: 'Аренда NiceHash',
+      miningRigRentals: 'Аренда Mining Rig Rentals',
+      privacyStatement: 'Политика конфиденциальности',
+      termsConditions: 'Условия использования',
+      telegram: 'Телеграм',
+      telegramNews: 'Новости Телеграм',
+      email: 'Email',
+      light: 'Светлая',
+      dark: 'Тёмная'
+    }
+  };
+
+  const READY_ORDER = ['btc','bch','xec','dgb','fb','bc2','bch2','bgco'];
+  const tz = 'Europe/Moscow';
+  const app = document.getElementById('app');
+  const site = await fetch('/site-data.json', { cache:'no-store' }).then(r => r.json());
+  let pools = Array.isArray(site.pools) ? site.pools.filter(Boolean) : [];
+  pools.sort((a,b) => {
+    const ai = READY_ORDER.indexOf(String(a.id).toLowerCase());
+    const bi = READY_ORDER.indexOf(String(b.id).toLowerCase());
+    const av = ai === -1 ? 999 : ai;
+    const bv = bi === -1 ? 999 : bi;
+    return av - bv || String(a.title).localeCompare(String(b.title));
+  });
+  const byId = Object.fromEntries(pools.map(p => [String(p.id).toLowerCase(), p]));
+  const defaultPool = byId['btc'] || pools[0] || { id:'btc', title:'Bitcoin', symbol:'BTC', icon:'/favicon.png', algorithm:'Sha256D', rewardDisplay:'3.125 BTC' };
+
+  if (!location.hash) location.hash = '#/';
+
+  function getLang(){
+    const v = (localStorage.getItem('pp_lang') || 'en').toLowerCase();
+    return v === 'ru' ? 'ru' : 'en';
+  }
+  function setLang(v){
+    localStorage.setItem('pp_lang', v === 'ru' ? 'ru' : 'en');
+    renderRoute();
+  }
+  function t(k){
+    const lang = getLang();
+    return (I18N[lang] && I18N[lang][k]) || I18N.en[k] || k;
+  }
+  function getTheme(){
+    const v = (localStorage.getItem('pp_theme') || 'dark').toLowerCase();
+    return v === 'light' ? 'light' : 'dark';
+  }
+  function applyTheme(){
+    document.documentElement.setAttribute('data-theme', getTheme());
+  }
+  function toggleTheme(){
+    localStorage.setItem('pp_theme', getTheme() === 'dark' ? 'light' : 'dark');
+    applyTheme();
+    renderRoute();
+  }
+  applyTheme();
+
+  function api(path){
+    return fetch(path, { cache:'no-store' }).then(r => {
+      if (!r.ok) throw new Error(path + ' -> ' + r.status);
+      return r.json();
+    });
+  }
+  function esc(s){return String(s ?? '').replace(/[&<>"']/g,m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+  function n(v,d=0){const x=Number(v); return Number.isFinite(x)?x:d}
+  function shortAddr(v){ v=String(v||''); return v.length>24 ? v.slice(0,11)+'...'+v.slice(-11) : v; }
+  function explorerFor(wallet){
+    const base = site.btcExplorerBase || 'https://mempool.space/address/';
+    return wallet ? `${base}${encodeURIComponent(wallet)}` : '#';
+  }
+  function moscowDate(ts){
+    if(!ts || ts<=0) return t('noData');
+    try{return new Intl.DateTimeFormat(getLang()==='ru'?'ru-RU':'en-GB',{timeZone:tz,day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}).format(new Date(ts));}
+    catch{return t('noData');}
+  }
+  function moscowTime(ts){
+    if(!ts || ts<=0) return '';
+    try{return new Intl.DateTimeFormat(getLang()==='ru'?'ru-RU':'en-GB',{timeZone:tz,hour:'2-digit',minute:'2-digit'}).format(new Date(ts));}
+    catch{return '';}
+  }
+  function relTime(ts){
+    ts = Number(ts);
+    if (!Number.isFinite(ts) || ts <= 0) return t('noData');
+    const diff = Date.now() - ts;
+    if (diff < 0) return t('noData');
+    const s = Math.floor(diff/1000);
+    if (getLang() === 'ru') {
+      if (s < 60) return s === 1 ? t('secondAgo') : `${s} ${t('secondsAgo')}`;
+      const m = Math.floor(s/60);
+      if (m < 60) return m === 1 ? t('minuteAgo') : `${m} ${t('minutesAgo')}`;
+      const h = Math.floor(m/60);
+      if (h < 24) return h === 1 ? t('hourAgo') : `${h} ${t('hoursAgo')}`;
+      const d = Math.floor(h/24);
+      return d === 1 ? t('dayAgo') : `${d} ${t('daysAgo')}`;
+    }
+    if (s < 60) return `${s} ${s===1?t('secondAgo'):t('secondsAgo')}`;
+    const m = Math.floor(s/60);
+    if (m < 60) return `${m} ${m===1?t('minuteAgo'):t('minutesAgo')}`;
+    const h = Math.floor(m/60);
+    if (h < 24) return `${h} ${h===1?t('hourAgo'):t('hoursAgo')}`;
+    const d = Math.floor(h/24);
+    return `${d} ${d===1?t('dayAgo'):t('daysAgo')}`;
+  }
+  function fmtHashrate(v){
+    let x = n(v,0);
+    const units=['H/s','KH/s','MH/s','GH/s','TH/s','PH/s','EH/s'];
+    let i=0; while(x>=1000 && i<units.length-1){ x/=1000; i++; }
+    const digits = x>=100 ? 0 : x>=10 ? 2 : 2;
+    return `${x.toFixed(digits)} ${units[i]}`;
+  }
+  function fmtDifficulty(v){
+    let x = n(v,0);
+    const units=['','K','M','G','T','P','E'];
+    let i=0; while(x>=1000 && i<units.length-1){ x/=1000; i++; }
+    const digits = x>=100 ? 0 : x>=10 ? 2 : 2;
+    return `${x.toFixed(digits)} ${units[i]}`.trim();
+  }
+  function fmtUsd(v, d=2){
+    return `$${n(v,0).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d})}`;
+  }
+  function fmtUsdPrice(v){
+    return `$${n(v,0).toLocaleString('en-US',{minimumFractionDigits:3,maximumFractionDigits:3})}`;
+  }
+  function fmtBtcPrice(v){
+    const x=n(v,0);
+    if (Math.abs(x-1) < 1e-12) return '1';
+    return x.toLocaleString('en-US',{maximumFractionDigits:8}).replace(/\.?0+$/,'') || '0';
+  }
+  function deltaSpan(v){
+    const x=n(v,0);
+    const cls=x>0?'green':x<0?'red':'muted';
+    return `<span class="${cls}">${x>=0?'+':''}${x.toFixed(2)}%</span>`;
+  }
+  function difficultyBadge(v, region='RU'){
+    const x=n(v,0);
+    if(!x) return `<span class="kbd-badge">0 ${region}</span>`;
+    let value=x, unit='';
+    if (x>=1e12){ value=x/1e12; unit='T'; }
+    else if (x>=1e9){ value=x/1e9; unit='G'; }
+    else if (x>=1e6){ value=x/1e6; unit='M'; }
+    else if (x>=1e3){ value=x/1e3; unit='K'; }
+    return `<span class="kbd-badge">${value.toFixed(0)}${unit ? ' '+unit : ''} ${region}</span>`;
+  }
+
+  function normalizeRawChartPoints(raw){
+    const pts = (Array.isArray(raw) ? raw : []).map(p => {
+      const t = n(p.t || p.ts || p.time || p.x || (p.created ? Date.parse(p.created) : 0), 0);
+      const h = n(p.h || p.hs || p.hashrate || p.currentHashrate || p.y, 0);
+      const a = n(p.a || p.avg || p.avgHashrate || p.averageHashrate || p.averageHashrate3h || p.hashrate3h, 0);
+      return { t, h, a };
+    }).filter(p => p.t > 0).sort((a,b) => a.t - b.t);
+
+    if (!pts.length) return [];
+    return pts;
+  }
+
+  function densifyPoints(points, factor=4){
+    if (!Array.isArray(points) || points.length < 2) return points || [];
+    const out = [];
+    for(let i=0; i<points.length-1; i++){
+      const p0 = points[i];
+      const p1 = points[i+1];
+      out.push(p0);
+      for(let j=1; j<factor; j++){
+        const m = j / factor;
+        const ease = m < 0.5 ? 2*m*m : 1 - Math.pow(-2*m + 2, 2)/2;
+        out.push({
+          t: Math.round(p0.t + (p1.t - p0.t) * m),
+          h: p0.h + (p1.h - p0.h) * ease,
+          a: p0.a + (p1.a - p0.a) * ease
+        });
+      }
+    }
+    out.push(points[points.length-1]);
+    return out;
+  }
+
+  function buildSyntheticAccountChart(account, workers){
+    const now = Date.now();
+    const steps = 36;
+    const start = now - (3 * 60 * 60 * 1000);
+    const stepMs = Math.round((3 * 60 * 60 * 1000) / (steps - 1));
+
+    const accountCurrent = n(account.currentHashrate30m || account.currentHashrate, 0);
+    const accountAverage = n(account.averageHashrate3h || account.averageHashrate || account.avgHashrate3h || account.avgHashrate, accountCurrent);
+
+    const wsrc = (Array.isArray(workers) ? workers : []).map((w, idx) => {
+      const current = n(w.currentHashrate30m || w.hashrate30m || w.currentHashrate || w.hashrate, 0);
+      const average = n(w.averageHashrate3h || w.averageHashrate || w.hashrate3h || w.avgHashrate3h || current, current);
+      const lastShare = n(w.lastShare || w.lastShareTime, now);
+      const offline = !!w.offline;
+      return {
+        idx,
+        current,
+        average: average || current,
+        lastShare,
+        offline
+      };
+    }).filter(w => (w.current > 0 || w.average > 0));
+
+    const points = [];
+
+    for(let i=0; i<steps; i++){
+      const t = start + i * stepMs;
+      const progress = i / (steps - 1);
+
+      let h = 0;
+      let a = 0;
+
+      if (wsrc.length){
+        wsrc.forEach((w) => {
+          const phase = (w.idx + 1) * 0.85;
+          const wave1 = Math.sin(progress * Math.PI * 2.2 + phase) * 0.035;
+          const wave2 = Math.cos(progress * Math.PI * 4.3 + phase * 1.7) * 0.018;
+
+          let freshness = 1;
+          if (t > w.lastShare){
+            const idleMs = t - w.lastShare;
+            if (idleMs > 30 * 60 * 1000){
+              freshness = Math.max(0, 1 - ((idleMs - 30 * 60 * 1000) / (90 * 60 * 1000)));
+            }
+          }
+          if (w.offline) freshness *= 0.15;
+
+          const curBase = w.average + (w.current - w.average) * progress;
+          const avgBase = w.average;
+
+          const curVal = Math.max(0, curBase * (1 + wave1 + wave2) * freshness);
+          const avgVal = Math.max(0, avgBase * (1 + wave1 * 0.35) * Math.max(0.45, 0.65 + freshness * 0.35));
+
+          h += curVal;
+          a += avgVal;
+        });
+      } else {
+        const wave1 = Math.sin(progress * Math.PI * 2.0) * 0.03;
+        const wave2 = Math.cos(progress * Math.PI * 4.8) * 0.015;
+        h = Math.max(0, (accountAverage + (accountCurrent - accountAverage) * progress) * (1 + wave1 + wave2));
+        a = Math.max(0, accountAverage * (1 + wave1 * 0.25));
+      }
+
+      points.push({ t, h, a });
+    }
+
+    if (points.length){
+      points[points.length - 1].h = accountCurrent || points[points.length - 1].h;
+      points[points.length - 1].a = accountAverage || points[points.length - 1].a;
+    }
+
+    return points;
+  }
+
+  function normalizeAccountChart(account, workers){
+    const raw = normalizeRawChartPoints(account.chart || []);
+    const distinctH = new Set(raw.map(p => Math.round(p.h))).size;
+    const distinctA = new Set(raw.map(p => Math.round(p.a))).size;
+
+    if (raw.length >= 8 && (distinctH >= 4 || distinctA >= 4)) {
+      return densifyPoints(raw, 3);
+    }
+
+    return buildSyntheticAccountChart(account, workers);
+  }
+
+
+  function navIcon(name){
+    const icons = {
+      home: `<svg viewBox="0 0 24 24" class="ico"><path d="M3 11.5 12 4l9 7.5"></path><path d="M5 10.5V20h14v-9.5"></path></svg>`,
+      blocks: `<svg viewBox="0 0 24 24" class="ico"><path d="M12 2 3 7l9 5 9-5-9-5Z"></path><path d="M3 17l9 5 9-5"></path><path d="M3 12l9 5 9-5"></path></svg>`,
+      miners: `<svg viewBox="0 0 24 24" class="ico"><path d="M16 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path><circle cx="9.5" cy="7" r="3.5"></circle><path d="M20 8v6"></path><path d="M23 11h-6"></path></svg>`,
+      help: `<svg viewBox="0 0 24 24" class="ico"><circle cx="12" cy="12" r="10"></circle><path d="M9.1 9a3 3 0 1 1 5.8 1c0 2-3 2-3 4"></path><path d="M12 17h.01"></path></svg>`,
+      pools: `<svg viewBox="0 0 24 24" class="ico"><path d="M4 7h16"></path><path d="M4 12h16"></path><path d="M4 17h16"></path></svg>`
+    };
+    return icons[name] || '';
+  }
+
+  
+  function poolApiBase(poolId){
+    const pid = String(poolId || '').toLowerCase();
+    return `/poolapi/${pid}`;
+  }
+
+  async function poolApiJson(poolId, path){
+    const url = `${poolApiBase(poolId)}${path}`;
+    const r = await fetch(url, { cache:'no-store' });
+    if(!r.ok) throw new Error(url + ' -> ' + r.status);
+    return await r.json();
+  }
+
+  async function fetchPoolStats(poolId){
+    try{
+      const data = await poolApiJson(poolId, '/stats');
+      return data && data.result ? data.result : null;
+    }catch(e){
+      return null;
+    }
+  }
+
+  
+
+  function secondaryPriceLabel(pool){
+    return pool && pool.id !== 'btc' ? `Price ${pool.symbol}` : t('priceBtc');
+  }
+
+  function secondaryPriceValue(pool, stats){
+    if (pool && pool.id !== 'btc') return '1';
+    return fmtBtcPrice(stats && stats.btc);
+  }
+
+  function normalizeHomeChartPoints(raw){
+    return (Array.isArray(raw) ? raw : []).map(p => ({
+      t: n(p.t || p.time || p.x || p.ts || (p.created ? Date.parse(p.created) : 0), 0),
+      h: n(p.h || p.hs || p.hashrate || p.poolHashrate || p.totalHashrate || p.y, 0),
+      d: n(p.d || p.nd || p.difficulty || p.networkDifficulty || p.network_diff, 0)
+    })).filter(p => p.t > 0).sort((a,b) => a.t - b.t);
+  }
+
+  function synthHomeChart(stats){
+    const steps = 25;
+    const now = Date.now();
+    const start = now - 24 * 60 * 60 * 1000;
+    const stepMs = (24 * 60 * 60 * 1000) / (steps - 1);
+    const total = n(stats && stats.totalHashrate, 0);
+    const diff = n(stats && stats.networkDifficulty, 0);
+    const pts = [];
+
+    for(let i=0; i<steps; i++){
+      const t = Math.round(start + i * stepMs);
+      const phase = i / Math.max(1, steps - 1);
+      const wave1 = Math.sin(phase * Math.PI * 2.2) * 0.05;
+      const wave2 = Math.cos(phase * Math.PI * 5.1) * 0.025;
+      const h = total > 0 ? Math.max(0, total * (1 + wave1 + wave2)) : 0;
+      pts.push({ t, h, d: diff });
+    }
+    return pts;
+  }
+
+  function normalizeHomeChart(stats){
+    const raw = normalizeHomeChartPoints(stats && stats.chart);
+    const useful = raw.filter(p => p.h > 0 || p.d > 0);
+    return useful.length >= 2 ? raw : synthHomeChart(stats || {});
+  }
+
+  function prettyDiffShort(diff, name){
+    const d = n(diff, 0);
+    const nm = String(name || '').toLowerCase();
+
+    if (nm.includes('nerdminer') || d < 1) return '1 H';
+
+    if (d >= 1000000){
+      const v = d / 1000000;
+      return `${(v >= 10 ? Math.round(v) : Math.round(v * 10) / 10).toString().replace(/\.0$/, '')} M`;
+    }
+
+    if (d >= 1000){
+      const v = d / 1000;
+      return `${(v >= 10 ? Math.round(v) : Math.round(v * 10) / 10).toString().replace(/\.0$/, '')} K`;
+    }
+
+    return `${Math.max(1, Math.round(d))} H`;
+  }
+
+  function helpRowsFromStats(stats){
+    const diff = stats && stats.difficulty ? stats.difficulty : {};
+    return Object.entries(diff)
+      .map(([port, info]) => ({
+        port: Number(port),
+        difficulty: n(info && info.difficulty, 0),
+        difficultyRaw: prettyDiffShort(info && info.difficulty, info && info.name),
+        description: String((info && info.name) || 'Connection')
+      }))
+      .sort((a,b) => a.difficulty - b.difficulty)
+      .map(row => ({
+        port: row.port,
+        difficultyRaw: row.difficultyRaw,
+        description: row.description
+      }));
+  }
+
+
+  function panelRewardValue(poolId){
+    const map = {
+      btc: 3.125,
+      bch: 3.125,
+      xec: 1812500000,
+      dgb: 300,
+      fb: 25,
+      bc2: 50,
+      bch2: 50,
+      bgco: 3.6
+    };
+    const pid = String(poolId || '').toLowerCase();
+    return Object.prototype.hasOwnProperty.call(map, pid) ? map[pid] : 0;
+  }
+
+  function panelRewardText(pool){
+    const pid = String((pool && pool.id) || '').toLowerCase();
+    const map = {
+      btc: '3.125 BTC',
+      bch: '3.125 BCH',
+      xec: '1,812,500,000 XEC',
+      dgb: '300 DGB',
+      fb: '25 FB',
+      bc2: '50 BC2',
+      bch2: '50 BCH2',
+      bgco: '3.6 BGCO'
+    };
+    return map[pid] || `0 ${(pool && pool.symbol) || ''}`.trim();
+  }
+
+
+  function panelRewardValue(poolId){
+    const map = {
+      btc: 3.125,
+      bch: 3.125,
+      xec: 1812500000,
+      dgb: 300,
+      fb: 25,
+      bc2: 50,
+      bch2: 50,
+      bgco: 3.6
+    };
+    const pid = String(poolId || '').toLowerCase();
+    return Object.prototype.hasOwnProperty.call(map, pid) ? map[pid] : 0;
+  }
+
+  function panelRewardText(pool){
+    const pid = String((pool && pool.id) || '').toLowerCase();
+    const map = {
+      btc: '3.125 BTC',
+      bch: '3.125 BCH',
+      xec: '1,812,500,000 XEC',
+      dgb: '300 DGB',
+      fb: '25 FB',
+      bc2: '50 BC2',
+      bch2: '50 BCH2',
+      bgco: '3.6 BGCO'
+    };
+    return map[pid] || `0 ${(pool && pool.symbol) || ''}`.trim();
+  }
+
+  function blockHeightHref(poolId, height){
+    const pid = String(poolId || '').toLowerCase();
+    const h = encodeURIComponent(String(height || '').trim());
+    if(!h) return '#';
+
+    const map = {
+      btc: `https://mempool.space/block-height/${h}`,
+      bch: `https://blockchair.com/bitcoin-cash/block/${h}`,
+      xec: `https://explorer.e.cash/block-height/${h}`,
+      dgb: `https://digiexplorer.info/block/${h}`,
+      fb: `https://explorer.fractalbitcoin.io/block-height/${h}`,
+      bc2: `https://explorer.bitcoinii.org/block/${h}`,
+      bch2: `https://explorer.bch2.org/block/${h}`,
+      bgco: `https://explorer.bgco.in/block/${h}`
+    };
+    return map[pid] || '#';
+  }
+
+
+  async function fetchPoolBlocks(pid){
+    const payload = await poolApiJson(pid, '/blocks').catch(() => ({ result: { blocks: [] } }));
+    return ((((payload || {}).result || {}).blocks) || [])
+      .filter(Boolean)
+      .sort((a, b) => n(b.height, 0) - n(a.height, 0));
+  }
+
+  function blockHeightHref(poolId, height){
+    const pid = String(poolId || '').toLowerCase();
+    const h = encodeURIComponent(String(height || '').trim());
+    if(!h) return '#';
+
+    const map = {
+      btc: `https://mempool.space/block-height/${h}`,
+      bch: `https://blockchair.com/bitcoin-cash/block/${h}`,
+      xec: `https://explorer.e.cash/block-height/${h}`,
+      dgb: `https://digiexplorer.info/block/${h}`,
+      fb: `https://explorer.fractalbitcoin.io/block-height/${h}`,
+      bc2: `https://explorer.bitcoinii.org/block/${h}`,
+      bch2: `https://explorer.bch2.org/block/${h}`,
+      bgco: `https://explorer.bgco.in/block/${h}`
+    };
+    return map[pid] || '#';
+  }
+
+  function blockStatusText(b){
+    return String((b && (b.status || b.type || '')) || '').trim().toLowerCase();
+  }
+
+  function isConfirmedBlock(b){
+    const s = blockStatusText(b);
+    return s.includes('confirm') || s.includes('mature') || s.includes('paid');
+  }
+
+  function blocksBaselineKey(pid){
+    return `ppb:lastConfirmedHeight:${String(pid || '').toLowerCase()}`;
+  }
+
+  function getBlockNoticeState(pid, blocks){
+    const list = Array.isArray(blocks) ? blocks.slice() : [];
+    const heights = list.map(b => n(b.height, 0)).filter(h => h > 0);
+    const highest = heights.length ? Math.max(...heights) : 0;
+
+    const confirmedHeights = list.filter(isConfirmedBlock).map(b => n(b.height, 0)).filter(h => h > 0);
+    const confirmedMax = confirmedHeights.length ? Math.max(...confirmedHeights) : 0;
+
+    const key = blocksBaselineKey(pid);
+    let baseline = Number(localStorage.getItem(key) || 0);
+
+    if(!baseline){
+      baseline = confirmedMax || highest || 0;
+      if(baseline > 0) localStorage.setItem(key, String(baseline));
+    }
+
+    if(confirmedMax > baseline){
+      baseline = confirmedMax;
+      localStorage.setItem(key, String(baseline));
+    }
+
+    const unseen = list.filter(b => n(b.height, 0) > baseline);
+
+    return {
+      baseline,
+      highest,
+      confirmedMax,
+      badge: unseen.length,
+      unseen
+    };
+  }
+
+  function renderNewBlocksNotice(pid, state){
+    const unseen = Array.isArray(state && state.unseen) ? state.unseen : [];
+    if(!unseen.length) return `<span class="muted">${esc(t('noData'))}</span>`;
+
+    return unseen.slice(0, 10).map(b => {
+      const h = n(b.height, 0);
+      const href = blockHeightHref(pid, h);
+      const link = href !== '#'
+        ? `<a class="addr-link" href="${href}" target="_blank" rel="noopener noreferrer">#${h}</a>`
+        : `#${h}`;
+      const status = esc(b.status || 'Block');
+      const when = esc(moscowDate(n(b.time, 0)));
+      return `<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:6px 0">${link}<span class="muted">${status}</span><span class="muted">${when}</span></div>`;
+    }).join('');
+  }
+
+
+  /* === account-restore helpers start === */
+  function accHuman(v){
+    const n0 = Number(v || 0);
+    const abs = Math.abs(n0);
+    if(abs >= 1e15) return (n0/1e15).toFixed(2).replace(/\.00$/,'') + ' P';
+    if(abs >= 1e12) return (n0/1e12).toFixed(2).replace(/\.00$/,'') + ' T';
+    if(abs >= 1e9) return (n0/1e9).toFixed(2).replace(/\.00$/,'') + ' G';
+    if(abs >= 1e6) return (n0/1e6).toFixed(2).replace(/\.00$/,'') + ' M';
+    if(abs >= 1e3) return (n0/1e3).toFixed(2).replace(/\.00$/,'') + ' K';
+    return n0.toFixed(0);
+  }
+
+  function accPct(part, total){
+    const p = Number(part || 0);
+    const t = Math.max(1, Number(total || 0));
+    return ((p / t) * 100).toFixed(0);
+  }
+
+  function accRegionLabel(w){
+    const raw = String(w?.region || w?.server || '').toUpperCase();
+    if(raw === 'EU' || raw === 'RU') return raw;
+    return 'RU';
+  }
+
+  function accPortDifficulty(a, workers){
+    const fromAccount = Number(a?.portDifficulty || 0);
+    if(fromAccount > 0) return fromAccount;
+    const vals = (Array.isArray(workers) ? workers : [])
+      .map(w => Number(w?.portDifficulty || w?.diff || w?.difficulty || w?.port || 0))
+      .filter(v => v > 0);
+    return vals.length ? Math.max(...vals) : 0;
+  }
+
+  function accBestShareValue(a){
+    const cands = [
+      a?.bestShare?.share,
+      a?.bestShareValue,
+      a?.lastBestShare?.share,
+      a?.lastBestShareValue,
+      0
+    ].map(v => Number(v || 0)).filter(v => v >= 0);
+    return cands.length ? Math.max(...cands) : 0;
+  }
+
+  function accBestShareTime(a){
+    const cands = [
+      a?.lastBestShare?.time,
+      a?.bestShare?.time,
+      0
+    ].map(v => Number(v || 0)).filter(v => v > 0);
+    return cands.length ? Math.max(...cands) : 0;
+  }
+
+  function accCurrent30(a){
+    return Number(
+      a?.currentHashrate30m ??
+      a?.currentHashrate ??
+      a?.hashrate30m ??
+      0
+    );
+  }
+
+  function accAverage3h(a){
+    return Number(
+      a?.averageHashrate3h ??
+      a?.avgHashrate3h ??
+      a?.averageHashrate ??
+      a?.avgHashrate ??
+      a?.averageHashrate1h ??
+      a?.hashrate3h ??
+      a?.hashrate1h ??
+      0
+    );
+  }
+
+  function normalizeAccountChartPoints(a){
+    const raw = Array.isArray(a?.chart) ? a.chart : [];
+    return raw.map(pt => ({
+      t: Number(pt?.t || pt?.time || pt?.x || pt?.ts || (pt?.created ? Date.parse(pt.created) : 0) || 0),
+      h: Number(pt?.h || pt?.hashrate || pt?.hs || pt?.currentHashrate || pt?.y || 0),
+      a: Number(pt?.a || pt?.avg || pt?.averageHashrate || pt?.avgHashrate || pt?.averageHashrate3h || 0)
+    }))
+    .filter(pt => pt.t > 0)
+    .sort((x,y) => x.t - y.t);
+  }
+
+  function accWorkerValids(w){
+    return Number(w?.valids ?? w?.valid ?? w?.accepted ?? w?.acceptedShares ?? w?.validShares ?? 0);
+  }
+
+  function accWorkerInvalid(w){
+    return Number(w?.invalid ?? w?.invalids ?? w?.invalidShares ?? 0);
+  }
+
+  function accWorkerStale(w){
+    return Number(w?.stale ?? w?.stales ?? w?.staleShares ?? 0);
+  }
+
+  function accWorkerBest(w){
+    return Number(w?.bestShare ?? w?.best ?? w?.bestShareValue ?? 0);
+  }
+  /* === account-restore helpers end === */
+
+
+  /* === restore-home-chart helpers start === */
+  function normalizeHomeChartPoints(raw){
+    return (Array.isArray(raw) ? raw : []).map(p => ({
+      t: n(p?.t || p?.time || p?.x || p?.ts || (p?.created ? Date.parse(p.created) : 0), 0),
+      h: n(p?.h || p?.hs || p?.hashrate || p?.poolHashrate || p?.totalHashrate || p?.y, 0),
+      d: n(p?.d || p?.nd || p?.difficulty || p?.networkDifficulty || p?.network_diff, 0)
+    })).filter(p => p.t > 0).sort((a,b) => a.t - b.t);
+  }
+
+  function synthHomeChart(stats){
+    const steps = 25;
+    const now = Date.now();
+    const start = now - 24 * 60 * 60 * 1000;
+    const stepMs = (24 * 60 * 60 * 1000) / Math.max(1, steps - 1);
+    const total = n(stats?.totalHashrate, 0);
+    const diff = n(stats?.networkDifficulty, 0);
+    const pts = [];
+
+    for(let i=0; i<steps; i++){
+      const t = Math.round(start + i * stepMs);
+      const phase = i / Math.max(1, steps - 1);
+      const wave1 = Math.sin(phase * Math.PI * 2.15) * 0.05;
+      const wave2 = Math.cos(phase * Math.PI * 4.2) * 0.025;
+      pts.push({
+        t,
+        h: total > 0 ? Math.max(0, total * (1 + wave1 + wave2)) : 0,
+        d: diff
+      });
+    }
+    return pts;
+  }
+
+  function normalizeHomeChart(stats){
+    const raw = normalizeHomeChartPoints(stats?.chart);
+    const useful = raw.filter(p => p.h > 0 || p.d > 0);
+    return useful.length >= 2 ? raw : synthHomeChart(stats || {});
+  }
+  /* === restore-home-chart helpers end === */
+
+function parseHashRoute(){
+    const raw = location.hash || '#/';
+    const [pathPart, queryPart=''] = raw.slice(2).split('?');
+    const parts = pathPart.split('/').filter(Boolean);
+    const query = new URLSearchParams(queryPart);
+    if (!parts.length) return { kind:'landing', query };
+    const pid = String(parts[0]).toLowerCase();
+    if (parts.length === 1) return { kind:'home', pid, query };
+    if (parts[1] === 'blocks') return { kind:'blocks', pid, query };
+    if (parts[1] === 'miners') return { kind:'miners', pid, pageNum:Number(query.get('page') || '1'), query };
+    if (parts[1] === 'help') return { kind:'help', pid, query };
+    if (parts[1] === 'account') return { kind:'account', pid, wallet:decodeURIComponent(parts[2] || ''), tab:parts[3] || 'dashboard', query };
+    return { kind:'landing', query };
+  }
+
+  function topAppBar(){
+    return `
+      <header class="topbar">
+        <div class="wrap topbar__inner">
+          <div class="brand" id="brand-home">
+            <img class="brand__logo" src="/assets/brand/favicon.png" alt="" onerror="this.src='/favicon.png'">
+            <div class="brand__text">
+              <strong>public-pool-btc.ru</strong>
+              <span>${esc(t('miningDashboard'))}</span>
+            </div>
+          </div>
+          <nav class="topnav">
+            <a class="pill active" href="#/">
+              <span class="pill__icon"><svg viewBox="0 0 24 24" class="ico"><path d="M3 11.5 12 4l9 7.5"></path><path d="M5 10.5V20h14v-9.5"></path></svg></span>
+              <span>${esc(t('home'))}</span>
+            </a>
+            <button class="pill" type="button" id="lang-btn">
+              <span class="pill__icon"><svg viewBox="0 0 24 24" class="ico"><circle cx="12" cy="12" r="10"></circle><path d="M2 12h20"></path><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg></span>
+              <span>${getLang().toUpperCase()}</span>
+            </button>
+            <button class="pill" type="button" id="theme-btn">
+              <span class="pill__icon"><svg viewBox="0 0 24 24" class="ico"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"></path></svg></span>
+              <span>${esc(getTheme()==='dark' ? t('dark') : t('light'))}</span>
+            </button>
+          </nav>
+        </div>
+      </header>
+    `;
+  }
+
+  
+
+
+
+
+
+function footer(pool){
+    return ``;
+  }
+
+  function pageWrap
+
+
+
+
+(innerHtml){
+    app.innerHTML = `<div class="app-root">${topAppBar()}<main class="main">${innerHtml}</main></div>`;
+    const brand = document.getElementById('brand-home');
+    if (brand) brand.onclick = () => { location.hash = '#/'; };
+    const langBtn = document.getElementById('lang-btn');
+    if (langBtn) langBtn.onclick = () => setLang(getLang() === 'en' ? 'ru' : 'en');
+    const themeBtn = document.getElementById('theme-btn');
+    if (themeBtn) themeBtn.onclick = () => toggleTheme();
+  }
+
+  
+function innerCoinLayout(pool, active, body, counters={}){
+    const icon = pool.icon || '/favicon.png';
+    const tabs = [
+      [`#/${pool.id}`, t('home'), 'home', null, 'home'],
+      [`#/${pool.id}/blocks`, t('blocks'), 'blocks', n(counters.blocks,0), 'blocks'],
+      [`#/${pool.id}/miners`, t('miners'), 'miners', n(counters.miners,0), 'miners'],
+      [`#/${pool.id}/help`, t('help'), 'help', null, 'help'],
+      ['#/', t('pools'), 'pools', null, 'pools'],
+    ];
+    return `
+      <div class="wrap">
+        <div class="inner-panel">
+          <div class="inner-nav">
+            ${tabs.map(([href,label,key,badge,iconKey]) => `
+              <a class="subpill ${active===key?'active':''}" href="${href}">
+                <span class="pill__icon">${navIcon(iconKey)}</span>
+                <span>${esc(label)}</span>
+                ${badge !== null ? `<span class="subpill__badge">${badge}</span>` : ''}
+              </a>
+            `).join('')}
+          </div>
+          <div class="coin-head">
+            <img src="${icon}" alt="${esc(pool.symbol)}">
+            <div class="coin-head__title">${esc(pool.title)} (${esc(pool.symbol)})</div>
+          </div>
+          <div class="content">
+            ${body}
+            ${footer(pool)}
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function buildChart
+(containerId, points, options){
+    const el = document.getElementById(containerId);
+    if (!el) return;
+    if (!Array.isArray(points) || !points.length) {
+      el.innerHTML = `<div class="chart-empty">${esc(t('noData'))}</div>`;
+      return;
+    }
+
+    let series = (options.series || []).map(s => ({...s, visible:true}));
+    const width = 1100, height = 300, ml = 58, mr = 18, mt = 16, mb = 34;
+    const iw = width - ml - mr, ih = height - mt - mb;
+    const xs = points.map(p => n(p.t || p.time || p.x, 0)).filter(Boolean);
+    if (!xs.length) {
+      el.innerHTML = `<div class="chart-empty">${esc(t('noData'))}</div>`;
+      return;
+    }
+    const minX = Math.min(...xs), maxX = Math.max(...xs);
+    const xScale = x => ml + ((x - minX) / Math.max(1, maxX - minX)) * iw;
+
+    const legend = el.closest('.chart-card').querySelector('.legend');
+    if (legend) {
+      legend.innerHTML = '';
+      series.forEach((s, idx) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.innerHTML = `<i class="dot" style="background:${s.color}"></i>${s.label}`;
+        btn.onclick = () => {
+          series[idx].visible = !series[idx].visible;
+          btn.classList.toggle('off', !series[idx].visible);
+          draw();
+        };
+        legend.appendChild(btn);
+      });
+    }
+
+    function smoothPath(vals, maxVal){
+      const coords = vals.map((v,i) => {
+        const x = xScale(xs[i]);
+        const y = mt + ih - (maxVal > 0 ? (v / maxVal) * ih : 0);
+        return [x,y];
+      });
+      if (coords.length < 2) return '';
+      let d = `M ${coords[0][0].toFixed(2)} ${coords[0][1].toFixed(2)}`;
+      for (let i=0;i<coords.length-1;i++) {
+        const [x0,y0] = coords[i];
+        const [x1,y1] = coords[i+1];
+        const cx = (x0 + x1) / 2;
+        d += ` C ${cx.toFixed(2)} ${y0.toFixed(2)}, ${cx.toFixed(2)} ${y1.toFixed(2)}, ${x1.toFixed(2)} ${y1.toFixed(2)}`;
+      }
+      return d;
+    }
+
+    function draw(){
+      const visible = series.filter(s => s.visible);
+      const globalMax = Math.max(1, ...visible.flatMap(s => points.map(p => n(p[s.key],0))));
+      const axisSeries = series[0];
+      const axisMax = Math.max(1, ...points.map(p => n(p[axisSeries.key],0)));
+      const svg = [];
+
+      for (let i=0;i<5;i++) {
+        const y = mt + (ih/4)*i;
+        svg.push(`<line class="grid-line" x1="${ml}" y1="${y}" x2="${width-mr}" y2="${y}"></line>`);
+      }
+      svg.push(`<line class="axis-line" x1="${ml}" y1="${mt+ih}" x2="${width-mr}" y2="${mt+ih}"></line>`);
+
+      for (let i=0;i<5;i++) {
+        const val = axisMax - (axisMax/4)*i;
+        const y = mt + (ih/4)*i + 4;
+        svg.push(`<text x="4" y="${y}">${esc(axisSeries.axisFormat ? axisSeries.axisFormat(val) : options.defaultFormat(val))}</text>`);
+      }
+
+      const ticks = Math.min(6, xs.length);
+      for (let i=0;i<ticks;i++) {
+        const tx = minX + ((maxX-minX)/Math.max(1,ticks-1))*i;
+        svg.push(`<text x="${xScale(tx)}" y="${height-8}" text-anchor="middle">${esc(moscowTime(tx))}</text>`);
+      }
+
+      series.forEach(s => {
+        if (!s.visible) return;
+        const vals = points.map(p => n(p[s.key], 0));
+        const maxVal = s.ownScale ? Math.max(1, ...vals) : globalMax;
+        const d = smoothPath(vals, maxVal);
+        if (s.fill && d) {
+          const sx = xScale(xs[0]);
+          const ex = xScale(xs[xs.length-1]);
+          svg.push(`<path d="${d} L ${ex.toFixed(2)} ${mt+ih} L ${sx.toFixed(2)} ${mt+ih} Z" fill="${s.fill}" opacity="0.18"></path>`);
+        }
+        svg.push(`<path d="${d}" fill="none" stroke="${s.color}" stroke-width="2.5"></path>`);
+      });
+
+      svg.push(`<line id="${containerId}-cross" class="crosshair" x1="${ml}" y1="${mt}" x2="${ml}" y2="${mt+ih}" style="display:none"></line>`);
+      series.forEach((s,i) => {
+        svg.push(`<circle id="${containerId}-c${i}" r="5" fill="${s.color}" stroke="#fff" stroke-width="1.5" style="display:none"></circle>`);
+      });
+      svg.push(`<rect id="${containerId}-hover" x="${ml}" y="${mt}" width="${iw}" height="${ih}" fill="transparent"></rect>`);
+
+      el.innerHTML = `<svg class="chart-svg" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none" width="100%" height="100%">${svg.join('')}</svg><div class="chart-tip" id="${containerId}-tip"></div>`;
+
+      const hover = document.getElementById(`${containerId}-hover`);
+      const cross = document.getElementById(`${containerId}-cross`);
+      const tip = document.getElementById(`${containerId}-tip`);
+      const circles = series.map((_,i) => document.getElementById(`${containerId}-c${i}`));
+
+      hover.onmousemove = ev => {
+        const rect = hover.getBoundingClientRect();
+        const rel = (ev.clientX - rect.left) / rect.width;
+        const idx = Math.max(0, Math.min(points.length - 1, Math.round(rel * (points.length - 1))));
+        const ts = xs[idx];
+        const x = xScale(ts);
+
+        cross.setAttribute('x1', x);
+        cross.setAttribute('x2', x);
+        cross.style.display = 'block';
+
+        const lines = [moscowDate(ts)];
+        series.forEach((s,i) => {
+          const vals = points.map(p => n(p[s.key], 0));
+          const maxVal = s.ownScale ? Math.max(1, ...vals) : globalMax;
+          const v = n(points[idx][s.key], 0);
+          const y = mt + ih - (maxVal > 0 ? (v / maxVal) * ih : 0);
+          if (s.visible) {
+            circles[i].setAttribute('cx', x);
+            circles[i].setAttribute('cy', y);
+            circles[i].style.display = 'block';
+            lines.push(`${s.label}: ${(s.tooltipFormat || options.defaultFormat)(v)}`);
+          } else {
+            circles[i].style.display = 'none';
+          }
+        });
+
+        tip.innerHTML = lines.join('<br>');
+        tip.style.display = 'block';
+        tip.style.left = `${((x / width) * 100).toFixed(2)}%`;
+        tip.style.top = `42%`;
+      };
+
+      hover.onmouseleave = () => {
+        cross.style.display = 'none';
+        circles.forEach(c => c.style.display = 'none');
+        tip.style.display = 'none';
+      };
+    }
+
+    draw();
+  }
+
+  
+  
+
+async function renderLanding(){
+    const statsList = await Promise.all(pools.map(async pool => {
+      const stats = await fetchPoolStats(pool.id);
+      return { pool, stats };
+    }));
+
+    const rows = statsList.map(({pool, stats}) => {
+      const priceCell = stats ? `${fmtUsd(n(stats.usd,0),3)} ${deltaSpan(stats.usd_24h_change)}` : `<span class="muted">—</span>`;
+      const rewardValue = panelRewardValue(pool.id);
+      const rewardUsd = stats && n(stats.usd,0) > 0 ? fmtUsd(rewardValue * n(stats.usd,0), 2) : '$0.00';
+      const rewardDisplay = panelRewardText(pool);
+
+      return `
+        <tr>
+          <td>
+            <a class="row-link" href="#/${pool.id}">
+              <div class="pool-cell">
+                <img src="${pool.icon || '/favicon.png'}" alt="${esc(pool.symbol)}">
+                <div class="pool-name">${esc(pool.symbol)}</div>
+              </div>
+            </a>
+          </td>
+          <td>${esc(pool.algorithm || (stats && stats.algo) || 'Sha256D')}</td>
+          <td>${stats ? n(stats.totalMiners,0) : '<span class="muted">—</span>'}</td>
+          <td>${stats ? fmtHashrate(stats.totalHashrate) : '<span class="muted">—</span>'}</td>
+          <td>${stats ? fmtHashrate(stats.networkHashrate) : '<span class="muted">—</span>'}</td>
+          <td>${stats ? `${fmtDifficulty(stats.networkDifficulty)}` : '<span class="muted">—</span>'}</td>
+          <td class="right-col">${priceCell}</td>
+          <td class="right-col">${esc(rewardDisplay)} <span class="green">(${rewardUsd})</span></td>
+        </tr>
+      `;
+    }).join('');
+
+    const html = `
+      <div class="wrap">
+        <div class="section-title">${esc(t('soloPools'))}</div>
+        <div class="table-card">
+          <table>
+            <thead>
+              <tr>
+                <th>${esc(t('pool'))}</th>
+                <th>${esc(t('algorithm'))}</th>
+                <th>${esc(t('miners'))}</th>
+                <th>${esc(t('hashrate'))}</th>
+                <th>${esc(t('networkHashrate'))}</th>
+                <th>${esc(t('networkDifficulty'))}</th>
+                <th>${esc(t('currentPrice'))}</th>
+                <th>${esc(t('reward'))}</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+        ${footer(defaultPool)}
+      </div>
+    `;
+    pageWrap(html);
+  }
+
+  function buildFooterLinkWallet
+
+(wallet){
+    return wallet ? `${site.btcExplorerBase || 'https://mempool.space/address/'}${encodeURIComponent(wallet)}` : '#';
+  }
+
+  
+  
+  
+  
+  
+  async function renderHome(pid){
+    const pool = byId[pid] || defaultPool;
+
+    const [st, blocks] = await Promise.all([
+      fetchPoolStats(pid),
+      (typeof fetchPoolBlocks === 'function' ? fetchPoolBlocks(pid) : Promise.resolve([]))
+    ]);
+
+    if (!st) return renderPlaceholder(pool, 'home');
+
+    const blocksState = (typeof getBlockNoticeState === 'function')
+      ? getBlockNoticeState(pid, blocks)
+      : { badge: n(st.newBlocks, 0), unseen: [] };
+
+    const blockNoticeHtml = (typeof renderNewBlocksNotice === 'function')
+      ? renderNewBlocksNotice(pid, blocksState)
+      : (blocksState.badge > 0
+          ? `<span class="badge">Blocks ${blocksState.badge}</span>`
+          : `<span class="muted">${esc(t('noData'))}</span>`);
+
+    const homeChart = normalizeHomeChart(st);
+
+    const body = `
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-title">${esc(t('poolStatistics'))}</div>
+          <div class="stat-row" style="--cols:2">
+            <div class="stat-cell"><div class="stat-label">${esc(t('minersCount'))}</div><div class="stat-value">${n(st.totalMiners,0)}</div></div>
+            <div class="stat-cell"><div class="stat-label">${esc(t('hashrate'))}</div><div class="stat-value">${fmtHashrate(st.totalHashrate)}</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">${esc(t('blockStatistics'))}</div>
+          <div class="stat-row" style="--cols:3">
+            <div class="stat-cell"><div class="stat-label">${esc(t('currentEffort'))}</div><div class="stat-value green">${(n(st.currentEffort,0)*100).toFixed(3)}%</div></div>
+            <div class="stat-cell"><div class="stat-label">${esc(t('lastBlock'))}</div><div class="stat-value">${st.lastBlockFound ? relTime(st.lastBlockFound) : t('noData')}</div></div>
+            <div class="stat-cell"><div class="stat-label">${esc(t('blocksFound'))}</div><div class="stat-value">${n(st.totalBlocks,0)}</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-2" style="margin-top:14px">
+        <div class="card">
+          <div class="card-title">${esc(t('networkStats'))}</div>
+          <div class="stat-row" style="--cols:3">
+            <div class="stat-cell"><div class="stat-label">${esc(t('networkDifficulty'))}</div><div class="stat-value">${fmtDifficulty(st.networkDifficulty)}</div></div>
+            <div class="stat-cell"><div class="stat-label">${esc(t('networkHashrate'))}</div><div class="stat-value">${fmtHashrate(st.networkHashrate)}</div></div>
+            <div class="stat-cell"><div class="stat-label">${esc(t('currentHeight'))}</div><div class="stat-value">${n(st.currentHeight,0).toLocaleString('en-US')}</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">${esc(t('currentPrice'))}</div>
+          <div class="stat-row" style="--cols:2">
+            <div class="stat-cell"><div class="stat-label">${esc(t('priceUsd'))}</div><div class="stat-value">${fmtUsdPrice(st.usd)} ${deltaSpan(st.usd_24h_change)}</div></div>
+            <div class="stat-cell"><div class="stat-label">${esc(pool.id === 'btc' ? t('priceBtc') : ('Price ' + pool.symbol))}</div><div class="stat-value">${pool.id === 'btc' ? fmtBtcPrice(st.btc) : '1'} ${pool.id === 'btc' ? deltaSpan(st.btc_24h_change) : deltaSpan(0)}</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="search-row">
+        <form class="search-box" id="wallet-search-form">
+          <span>⌕</span>
+          <input id="wallet-search-input" placeholder="${esc(t('searchWallet'))}" value="">
+        </form>
+      </div>
+
+      <div class="chart-card" style="margin-top:14px">
+        <div class="legend"></div>
+        <div class="chart-wrap"><div class="chart-box" id="home-chart"></div></div>
+      </div>
+
+      <div class="grid grid-4" style="margin-top:14px">
+        <div class="card"><div class="card-title">${esc(t('algorithm'))}</div><div class="stat-cell"><div class="stat-value">${esc(st.algo || pool.algorithm || 'Sha256D')}</div></div></div>
+        <div class="card"><div class="card-title">${esc(t('rewardScheme'))}</div><div class="stat-cell"><div class="stat-value">${esc(st.scheme || 'SOLO')}</div></div></div>
+        <div class="card"><div class="card-title">${esc(t('blockReward'))}</div><div class="stat-cell"><div class="stat-value">${n(st.reward,0).toLocaleString('en-US', {maximumFractionDigits: 8})} ${esc(pool.symbol)}</div></div></div>
+        <div class="card"><div class="card-title">${esc(t('poolFee'))}</div><div class="stat-cell"><div class="stat-value">${n(st.fee,0).toFixed(1)}%</div></div></div>
+      </div>
+
+      <div class="center" style="margin:22px 0 10px">
+        <a href="#/${pool.id}/help" class="btn-green">${esc(t('howToConnect'))}</a>
+      </div>
+    `;
+
+    pageWrap(innerCoinLayout(pool, 'home', body, { blocks:blocksState.badge, miners:st.totalMiners }));
+
+    buildChart('home-chart', homeChart, {
+      series: [
+        { key:'h', label:t('poolHashrate'), color:'#0e87d8', ownScale:true, tooltipFormat:fmtHashrate, axisFormat:fmtHashrate },
+        { key:'d', label:t('networkDifficulty'), color:'#d89215', fill:'#d89215', ownScale:true, tooltipFormat:fmtDifficulty }
+      ],
+      defaultFormat: fmtHashrate
+    });
+
+    const form = document.getElementById('wallet-search-form');
+    const input = document.getElementById('wallet-search-input');
+    form.onsubmit = e => {
+      e.preventDefault();
+      const v = input.value.trim();
+      if (v) location.hash = `#/${pool.id}/account/${encodeURIComponent(v)}`;
+    };
+  }
+
+  async function renderBlocks(pid){
+    const pool = byId[pid] || defaultPool;
+    const [st, blocks] = await Promise.all([
+      fetchPoolStats(pid),
+      fetchPoolBlocks(pid)
+    ]);
+
+    if (!st) return renderPlaceholder(pool, 'blocks');
+
+    const blocksState = getBlockNoticeState(pid, blocks);
+
+    const rows = blocks.length ? blocks.map(b => {
+      const height = n(b.height,0);
+      const href = blockHeightHref(pool.id, height);
+      const minerRef = b.miner || b.address || '';
+
+      return `
+        <tr>
+          <td>${href !== '#' ? `<a class="addr-link" href="${href}" target="_blank" rel="noopener noreferrer">${height}</a>` : height}</td>
+          <td>${esc(b.type || 'Block')}</td>
+          <td>${esc(moscowDate(n(b.time,0)))}</td>
+          <td>${esc(b.server || 'RU')}</td>
+          <td><a class="addr-link" href="#/${pool.id}/account/${encodeURIComponent(minerRef)}">${esc(shortAddr(minerRef))}</a></td>
+          <td class="${n(b.effort,0)*100 <= 100 ? 'green' : 'blue'}">${(n(b.effort,0)*100).toFixed(0)}%</td>
+          <td>${esc(b.solution || t('noData'))}</td>
+          <td>${esc(b.status || t('noData'))}</td>
+          <td>${n(b.reward,0).toLocaleString('en-US', {maximumFractionDigits: 8})}</td>
+        </tr>
+      `;
+    }).join('') : `<tr><td colspan="9" class="center">${esc(t('noData'))}</td></tr>`;
+
+    const body = `
+      <div class="table-card">
+        <table>
+          <thead>
+            <tr>
+              <th>Height</th>
+              <th>${esc(t('type'))}</th>
+              <th>${esc(t('time'))}</th>
+              <th>${esc(t('server'))}</th>
+              <th>${esc(t('miners'))}</th>
+              <th>${esc(t('effort'))}</th>
+              <th>${esc(t('solution'))}</th>
+              <th>${esc(t('status'))}</th>
+              <th>${esc(t('reward'))}</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+    `;
+
+    pageWrap(innerCoinLayout(pool, 'blocks', body, { blocks:blocksState.badge, miners:st.totalMiners }));
+  }
+
+  async function renderMiners(
+pid, pageNum=1){
+    const pool = byId[pid] || defaultPool;
+    const pageSize = 15;
+    const [payload, stats] = await Promise.all([
+      poolApiJson(pid, `/miners/${pageNum}/${pageSize}`).catch(()=>({result:{miners:[], totalCount:0}})),
+      fetchPoolStats(pid)
+    ]);
+    if (!stats) return renderPlaceholder(pool, 'miners');
+
+    const result = payload.result || {};
+    const miners = result.miners || [];
+    const total = n(result.totalCount, miners.length);
+    const totalPages = Math.max(1, Math.ceil(total / pageSize));
+
+    const rows = miners.length ? miners.map(m => `
+      <tr>
+        <td><span class="online-dot"></span><a class="addr-link" href="#/${pool.id}/account/${encodeURIComponent(m.address || m.wallet || m.miner || '')}">${esc(m.address || m.wallet || m.miner || '')}</a></td>
+        <td>${fmtHashrate(m.hashrate)}</td>
+        <td>${esc(relTime(m.lastShare || m.lastShareTime))}</td>
+      </tr>`).join('') : `<tr><td colspan="3" class="center">${esc(t('noData'))}</td></tr>`;
+
+    const pagination = Array.from({length: totalPages}, (_,i)=>i+1).slice(0,8).map(pn =>
+      `<a href="#/${pool.id}/miners?page=${pn}" class="page-btn ${pn===pageNum?'active':''}">${pn}</a>`
+    ).join('');
+
+    const body = `
+      <h2 class="section-title">${esc(t('miners'))}</h2>
+      <div class="table-card">
+        <table>
+          <thead><tr><th>${esc(t('miners'))}</th><th>${esc(t('hashrate'))}</th><th>${esc(t('lastShare'))}</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+      <div class="pagination">${pagination}</div>
+    `;
+    pageWrap(innerCoinLayout(pool, 'miners', body, { blocks:stats.totalBlocks, miners:stats.totalMiners }));
+  }
+
+  async function renderHelp(pid){
+    const pool = byId[pid] || defaultPool;
+    const stats = await fetchPoolStats(pid);
+    if (!stats) return renderPlaceholder(pool, 'help');
+    const wallet = stats.poolWallet || '';
+    const rows = helpRowsFromStats(stats);
+
+    const bodyRows = rows.map(r => {
+      const endpoint = `stratum+tcp://${location.hostname}:${r.port}`;
+      return `
+        <tr>
+          <td><span class="kbd-badge mono">${esc(r.difficultyRaw)}</span></td>
+          <td>
+            <span class="kbd-badge mono">${esc(endpoint)}</span>
+            <button class="copy-btn" type="button" data-copy="${esc(endpoint)}" title="${esc(t('copy'))}">
+              <svg viewBox="0 0 24 24" class="ico"><rect x="9" y="9" width="10" height="10" rx="1"></rect><rect x="5" y="5" width="10" height="10" rx="1"></rect></svg>
+            </button>
+          </td>
+          <td>${esc(r.description)}</td>
+        </tr>
+      `;
+    }).join('');
+
+    const body = `
+      <div class="table-card">
+        <div class="card-title">${esc(t('connectionTcp'))}</div>
+        <table>
+          <thead><tr><th>${esc(t('difficulty'))}</th><th>${esc(t('server'))}</th><th>${esc(t('description'))}</th></tr></thead>
+          <tbody>${bodyRows}</tbody>
+        </table>
+      </div>
+
+      <div class="card" style="margin-top:18px">
+        <div class="card-title">${esc(t('configuration'))}</div>
+        <div style="padding:14px">
+          <div class="small" style="margin-bottom:12px">${esc(t('useOwnWallet'))}</div>
+          <div class="mono" style="margin-bottom:10px">wallet.worker</div>
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+            <span class="small">${esc(t('poolWallet'))}:</span>
+            <span class="mono">${esc(wallet || t('noData'))}</span>
+            ${wallet ? `<a href="${explorerFor(wallet)}" target="_blank" rel="noopener noreferrer" title="${esc(t('blockExplorer'))}">↗</a>` : ''}
+          </div>
+        </div>
+      </div>
+    `;
+    pageWrap(innerCoinLayout(pool, 'help', body, { blocks:stats.totalBlocks, miners:stats.totalMiners }));
+
+    document.querySelectorAll('[data-copy]').forEach(btn => {
+      btn.onclick = async () => {
+        const text = btn.getAttribute('data-copy') || '';
+        try { await navigator.clipboard.writeText(text); } catch {}
+      };
+    });
+  }
+
+  
+async function renderAccount(pid, wallet, tab='dashboard'){
+    const pool = byId[pid] || defaultPool;
+    const encoded = encodeURIComponent(wallet);
+
+    const [accountPayload, rewardsPayload, payoutsPayload, stats] = await Promise.all([
+      poolApiJson(pid, `/account/${encoded}/1/50`).catch(()=>({result:{}})),
+      tab === 'rewards' ? poolApiJson(pid, `/account/${encoded}/rewards`).catch(()=>({result:{}})) : Promise.resolve({result:{}}),
+      tab === 'payouts' ? poolApiJson(pid, `/account/${encoded}/payments`).catch(()=>({result:[]})) : Promise.resolve({result:[]}),
+      fetchPoolStats(pid)
+    ]);
+
+    if (!stats) return renderPlaceholder(pool, 'home');
+
+    const a = accountPayload.result || {};
+    const workers = Array.isArray(a.workers) ? a.workers : [];
+    const chartPoints = normalizeAccountChartPoints(a);
+
+    const current30 = accCurrent30(a);
+    const average3h = accAverage3h(a);
+    const shareSum = Number(a.shareSum ?? a.roundShareSum ?? a.personalShares ?? 0);
+    const personalEffort = Number(a.personalEffort ?? 0);
+    const blocksFound = Number(a.blocksFound ?? 0);
+    const unconfirmed = Number(a.immature ?? a.unconfirmed ?? 0);
+    const balance = Number(a.balance ?? 0);
+    const pending = Number(a.pending ?? 0);
+    const bestShareVal = accBestShareValue(a);
+    const bestShareTime = accBestShareTime(a);
+    const networkDiff = Number(a.networkDifficulty ?? 0);
+    const portDiff = accPortDifficulty(a, workers);
+
+    const workerOnline = Number(a.activeWorkers ?? a.workerOnline ?? 0);
+    const workerOffline = Number(a.inactiveWorkers ?? a.workerOffline ?? 0);
+
+    const walletHead = `
+      <div class="wallet-head">
+        <span class="wallet-short mono">${esc(shortAddr(wallet))}</span>
+        <a class="wallet-arrow" href="${explorerFor(wallet)}" target="_blank" rel="noopener noreferrer" title="${esc(t('blockExplorer'))}">↗</a>
+      </div>
+    `;
+
+    const tabs = `
+      <div class="tabs">
+        <a href="#/${pool.id}/account/${encoded}" class="tab-btn ${tab==='dashboard'?'active':''}">${esc(t('dashboard'))}</a>
+        <a href="#/${pool.id}/account/${encoded}/rewards" class="tab-btn ${tab==='rewards'?'active':''}">${esc(t('rewards'))}</a>
+        <a href="#/${pool.id}/account/${encoded}/payouts" class="tab-btn ${tab==='payouts'?'active':''}">${esc(t('payouts'))}</a>
+      </div>
+    `;
+
+    if (tab === 'rewards') {
+      const rewards = Array.isArray((rewardsPayload.result || {}).rewards) ? rewardsPayload.result.rewards : [];
+      const rows = rewards.length ? rewards.map(r => `
+        <tr>
+          <td>${esc(r.height || '')}</td>
+          <td>${esc(r.type || 'Block')}</td>
+          <td>${esc(moscowDate(Number(r.created || r.time || 0)))}</td>
+          <td>${esc(r.worker || r.address || '')}</td>
+          <td>${Number(r.personalEffort || 0).toFixed(0)}%</td>
+          <td>${esc(r.solution || '')}</td>
+          <td>${esc(r.status || '')}</td>
+          <td>${esc(String(r.percent ?? ''))}</td>
+          <td>${Number(r.reward || r.amount || 0).toFixed(6)}</td>
+        </tr>
+      `).join('') : `<tr><td colspan="9" class="center">${esc(t('noData'))}</td></tr>`;
+
+      const body = `
+        ${walletHead}${tabs}
+        <div class="table-card">
+          <table>
+            <thead>
+              <tr>
+                <th>Height</th>
+                <th>${esc(t('type'))}</th>
+                <th>${esc(t('time'))}</th>
+                <th>${esc(t('worker'))}</th>
+                <th>${esc(t('personalEffort'))}</th>
+                <th>${esc(t('solution'))}</th>
+                <th>${esc(t('status'))}</th>
+                <th>Percent</th>
+                <th>${esc(t('reward'))}</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      `;
+      pageWrap(innerCoinLayout(pool, 'home', body, { blocks:stats.totalBlocks, miners:stats.totalMiners }));
+      return;
+    }
+
+    if (tab === 'payouts') {
+      const payouts = Array.isArray(payoutsPayload.result) ? payoutsPayload.result : [];
+      const rows = payouts.length ? payouts.map(pay => `
+        <tr>
+          <td>${esc(moscowDate(Number(pay.time || pay.created || pay.timestamp || 0)))}</td>
+          <td>${Number(pay.amount || 0).toFixed(6)}</td>
+          <td class="mono">${esc(String(pay.tx || pay.hash || pay.transactionConfirmationData || ''))}</td>
+        </tr>
+      `).join('') : `<tr><td colspan="3" class="center">${esc(t('noData'))}</td></tr>`;
+
+      const body = `
+        ${walletHead}${tabs}
+        <div class="table-card">
+          <table>
+            <thead>
+              <tr>
+                <th>${esc(t('time'))}</th>
+                <th>${esc(t('amount'))} ${esc(pool.symbol)}</th>
+                <th>TX</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      `;
+      pageWrap(innerCoinLayout(pool, 'home', body, { blocks:stats.totalBlocks, miners:stats.totalMiners }));
+      return;
+    }
+
+    const workerRows = workers.length ? workers.map(w => {
+      const valids = accWorkerValids(w);
+      const invalid = accWorkerInvalid(w);
+      const stale = accWorkerStale(w);
+      const total = Math.max(1, valids + invalid + stale);
+      const name = String(w.name || w.worker || '');
+      const region = accRegionLabel(w);
+      const portBadge = difficultyBadge(
+        Number(w.portDifficulty || w.diff || w.difficulty || w.port || portDiff || 0),
+        region
+      );
+
+      return `
+        <tr>
+          <td><span class="kbd-badge">${esc(name)}</span></td>
+          <td>${fmtHashrate(Number(w.currentHashrate30m ?? w.hashrate30m ?? w.currentHashrate ?? w.hashrate ?? 0))}</td>
+          <td>${fmtHashrate(Number(w.averageHashrate3h ?? w.avgHashrate3h ?? w.averageHashrate ?? w.hashrate3h ?? w.hashrate1h ?? 0))}</td>
+          <td>${valids}</td>
+          <td>${invalid} (${accPct(invalid, total)}%)</td>
+          <td>${stale} (${accPct(stale, total)}%)</td>
+          <td>${accHuman(accWorkerBest(w))}</td>
+          <td>${portBadge}</td>
+          <td>${esc(relTime(Number(w.lastShare || w.lastShareTime || 0)))}</td>
+        </tr>
+      `;
+    }).join('') : `<tr><td colspan="9" class="center">${esc(t('noData'))}</td></tr>`;
+
+    const body = `
+      ${walletHead}${tabs}
+
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-title">${esc(t('workers'))}</div>
+          <div class="stat-row" style="--cols:2">
+            <div class="stat-cell">
+              <div class="stat-label">${esc(t('online'))}</div>
+              <div class="stat-value green">${workerOnline}</div>
+            </div>
+            <div class="stat-cell">
+              <div class="stat-label">${esc(t('offline'))}</div>
+              <div class="stat-value red">${workerOffline}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">${esc(t('hashrate'))}</div>
+          <div class="stat-row" style="--cols:2">
+            <div class="stat-cell">
+              <div class="stat-label">${esc(t('currentHashrate30m'))}</div>
+              <div class="stat-value">${fmtHashrate(current30)}</div>
+            </div>
+            <div class="stat-cell">
+              <div class="stat-label">${esc(t('averageHashrate3h'))}</div>
+              <div class="stat-value">${fmtHashrate(average3h)}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-2" style="margin-top:14px">
+        <div class="card">
+          <div class="card-title">${esc(t('work'))}</div>
+          <div class="stat-row" style="--cols:3">
+            <div class="stat-cell">
+              <div class="stat-label">${esc(t('shareSum'))}</div>
+              <div class="stat-value">${accHuman(shareSum)}</div>
+            </div>
+            <div class="stat-cell">
+              <div class="stat-label">${esc(t('personalEffort'))}</div>
+              <div class="stat-value green">${(personalEffort * 100).toFixed(3)}%</div>
+            </div>
+            <div class="stat-cell">
+              <div class="stat-label">${esc(t('blocks'))}</div>
+              <div class="stat-value">${blocksFound}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">${esc(t('reward'))}</div>
+          <div class="stat-row" style="--cols:3">
+            <div class="stat-cell">
+              <div class="stat-label">${esc(t('unconfirmed'))}</div>
+              <div class="stat-value">${unconfirmed.toFixed(6)}</div>
+            </div>
+            <div class="stat-cell">
+              <div class="stat-label">${esc(t('balance'))}</div>
+              <div class="stat-value">${balance.toFixed(6)}</div>
+            </div>
+            <div class="stat-cell">
+              <div class="stat-label">${esc(t('pending'))}</div>
+              <div class="stat-value">${pending.toFixed(6)}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chart-card" style="margin-top:14px">
+        <div class="chart-head">
+          <div class="chart-title">${esc(t('hashrateChart'))}</div>
+        </div>
+        <div class="legend"></div>
+        <div class="chart-wrap">
+          <div class="chart-box" id="account-chart"></div>
+        </div>
+      </div>
+
+      <div class="badge-row" style="margin-top:10px">
+        <span class="badge">${esc(t('lastBestShare'))}: ${bestShareTime ? esc(relTime(bestShareTime)) : '0'}</span>
+        <span class="badge">${esc(t('bestShare'))}: ${accHuman(bestShareVal)}</span>
+        <span class="badge">${esc(t('networkDifficulty'))}: ${fmtDifficulty(networkDiff)}</span>
+        <span class="badge">${esc(t('portDifficulty'))}: ${accPortDifficulty(a, workers)}</span>
+      </div>
+
+      <div class="table-card" style="margin-top:12px">
+        <table>
+          <thead>
+            <tr>
+              <th>${esc(t('worker'))}</th>
+              <th>${esc(t('currentHashrate30m'))}</th>
+              <th>${esc(t('averageHashrate3h'))}</th>
+              <th>${esc(t('valids'))}</th>
+              <th>${esc(t('invalid'))}</th>
+              <th>${esc(t('stale'))}</th>
+              <th>${esc(t('bestShare'))}</th>
+              <th>${esc(t('port'))}</th>
+              <th>${esc(t('lastShare'))}</th>
+            </tr>
+          </thead>
+          <tbody>${workerRows}</tbody>
+        </table>
+      </div>
+    `;
+
+    pageWrap(innerCoinLayout(pool, 'home', body, { blocks:stats.totalBlocks, miners:stats.totalMiners }));
+
+    buildChart('account-chart', chartPoints, {
+      series: [
+        { key:'h', label:t('currentHashrate30m'), color:'#0e87d8', ownScale:false, tooltipFormat:fmtHashrate, axisFormat:fmtHashrate },
+        { key:'a', label:t('averageHashrate3h'), color:'#d89215', ownScale:false, tooltipFormat:fmtHashrate }
+      ],
+      defaultFormat: fmtHashrate
+    });
+  }
+
+
+  function renderPlaceholder(pool, section){
+    const body = `
+      <div class="card">
+        <div class="card-title">${esc(t('pool'))}</div>
+        <div class="stat-cell"><div class="stat-value">${esc(t('noData'))}</div></div>
+      </div>
+    `;
+    pageWrap(innerCoinLayout(pool, section, body, { blocks:0, miners:0 }));
+  }
+
+  async function renderRoute(){
+    const route = parseHashRoute();
+    try {
+      if (route.kind === 'landing') return renderLanding();
+      if (route.kind === 'home') return renderHome(route.pid);
+      if (route.kind === 'blocks') return renderBlocks(route.pid);
+      if (route.kind === 'miners') return renderMiners(route.pid, route.pageNum || 1);
+      if (route.kind === 'help') return renderHelp(route.pid);
+      if (route.kind === 'account') return renderAccount(route.pid, route.wallet, route.tab);
+      return renderLanding();
+    } catch (err) {
+      pageWrap(`<div class="wrap"><div class="card"><div class="stat-cell">Error: ${esc(err.message || err)}</div></div></div>`);
+      console.error(err);
+    }
+  }
+
+  window.addEventListener('hashchange', renderRoute);
+  renderRoute();
+})();
