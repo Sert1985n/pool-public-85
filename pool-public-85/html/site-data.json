@@ -1,0 +1,72 @@
+{
+  "timezone": "Europe/Moscow",
+  "btcExplorerBase": "https://mempool.space/address/",
+  "btcWallet": "19mbC77ivYq6aWpu17tCQw6z6yxbWd7wrE",
+  "pools": [
+    {
+      "id": "btc",
+      "title": "Bitcoin",
+      "symbol": "BTC",
+      "algorithm": "Sha256D",
+      "wallet": "19mbC77ivYq6aWpu17tCQw6z6yxbWd7wrE",
+      "name": "Bitcoin",
+      "icon": "/img/icons/btc.png"
+    },
+    {
+      "id": "btcs",
+      "title": "Bitcoin Silver",
+      "symbol": "BTCS",
+      "algorithm": "Sha256D",
+      "wallet": "BntjESVkrGbSr4sFQJGxLHa52DQh9Czkhq",
+      "name": "Bitcoin Silver",
+      "icon": "/img/icons/btcs.png"
+    },
+    {
+      "id": "bch",
+      "title": "Bitcoin Cash",
+      "symbol": "BCH",
+      "algorithm": "Sha256D",
+      "wallet": "bitcoincash:qzd8ngelhg33kp58s5p3pvcd3rrhsy6weq0l8hh2ha",
+      "name": "Bitcoin Cash",
+      "icon": "/img/icons/bch.png",
+      "demoAccount": "bitcoincash:qz20h6v68vzm4hu2lal4p68taqer5eeqnywgmrf7me"
+    },
+    {
+      "id": "bc2",
+      "title": "Bitcoin II",
+      "symbol": "BC2",
+      "algorithm": "Sha256D",
+      "wallet": "12zdjBCGsDuW7wJQFxafMbUh92R2H5h1mW",
+      "name": "Bitcoin II",
+      "icon": "/img/icons/bc2.png"
+    },
+    {
+      "id": "lcc",
+      "symbol": "LCC",
+      "name": "Litecoin Cash",
+      "wallet": "MEHj8fXGVYvqHJNiy1Vy2rDsR1NA2NwJu7",
+      "icon": "/img/icons/lcc.png"
+    },
+    {
+      "id": "wjk",
+      "symbol": "WJK",
+      "name": "WojakCoin",
+      "wallet": "WjBfFV5B4vMT62ec4exU7uMua6kHH47qyu",
+      "icon": "/img/icons/wjk.png",
+      "demoAccount": "WZJu2NMeZKUxU3FzYARBbu2TNDzGsiJ2wM"
+    },
+    {
+      "id": "rvn",
+      "title": "Ravencoin",
+      "symbol": "RVN",
+      "algorithm": "KawPow",
+      "wallet": "RFW93NVWUzpkQrcGB6kvbHFa8YKzwwgV1U",
+      "name": "Ravencoin",
+      "icon": "/img/icons/rvn.png"
+    }
+  ],
+  "help": {
+    "rows": []
+  },
+  "defaultCoin": "btc"
+}
